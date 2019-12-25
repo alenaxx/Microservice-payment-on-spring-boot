@@ -1,6 +1,13 @@
 app:
   datasource:
-        jdbc-url: jdbc:postgresql://localhost:5432/payment
+        jdbc-url: jdbc:postgresql://localhost:5432/servicedb
         username: postgres
         password: password
         pool-size: 30
+
+
+
+
+server:
+  port : 8089
+

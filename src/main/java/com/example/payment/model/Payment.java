@@ -5,11 +5,62 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.UUID;
 
 public class Payment {
-    private final UUID paymentId;
+    private UUID paymentId;
+    private UUID orderId;
+    private String status;
+    private String userName;
+
+    public Payment(
+            @JsonProperty("orderId") UUID paymentId,
+            @JsonProperty("orderId") UUID orderId,
+            @JsonProperty("status") String status,
+            String userName) {
+        this.paymentId =UUID.randomUUID();
+        this.orderId = orderId;
+        this.status = status;
+        this.userName = userName;
+    }
+
+    public Payment() {}
+
+    public UUID getPaymentId() {
+        return UUID.randomUUID();
+    }
+
+    public UUID getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(UUID orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUsername() { return userName;
+    }
+
+
+
+   /* private final UUID paymentId;
     private  final UUID orderId;
-    private int status;
+    private String status;
     private String username;
-    private int cardInfo;
+    private String cardInfo;
 
     public UUID getPaymentId() {
         return paymentId;
@@ -19,7 +70,7 @@ public class Payment {
         return orderId;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -27,19 +78,19 @@ public class Payment {
         return username;
     }
 
-    public int getCardInfo() {
+    public String getCardInfo() {
         return cardInfo;
     }
 
     public Payment(@JsonProperty("paymentId") UUID paymentId,
                 @JsonProperty("orderId") UUID orderId,
-                @JsonProperty("status") int status,
+                @JsonProperty("status") String status,
                 @JsonProperty("username") String  username,
-                @JsonProperty("cardInfo") int cardInfo) {
+                @JsonProperty("cardInfo") String cardInfo) {
         this.paymentId = paymentId;
         this.orderId = orderId;
         this.status = status;
         this.username = username;
         this.cardInfo = cardInfo;
-    }
+    }*/
 }

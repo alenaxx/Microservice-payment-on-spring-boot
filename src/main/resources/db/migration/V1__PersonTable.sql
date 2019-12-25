@@ -5,3 +5,4 @@ CREATE TABLE payment(
   username VARCHAR (100) NOT NULL,
   cardInfo INTEGER
 );
+

@@ -1,5 +1,7 @@
 package com.example.payment.dao;
 
+import com.example.payment.dto.PaymentDto;
+import com.example.payment.dto.UserDetailsDto;
 import com.example.payment.model.Payment;
 
 import java.util.List;
@@ -8,14 +10,14 @@ import java.util.UUID;
 
 public interface PaymentDao {
 
-    int addPayment(UUID id, Payment payment);
+    PaymentDto initPayment(UUID id, UUID orderId, UserDetailsDto userDetails);
 
-    default int initPayment(Payment payment) {
+    default PaymentDto initPayment(UUID orderId, UserDetailsDto userDetails) {
         UUID id = UUID.randomUUID();
-        return addPayment(id, payment);
+        return initPayment(id,orderId,userDetails);
     }
 
+    PaymentDto getPaymentStatus(UUID orderId);
 
-    List<Payment> getAllPayments();
 
 }
