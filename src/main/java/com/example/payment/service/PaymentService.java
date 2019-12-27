@@ -3,31 +3,26 @@ package com.example.payment.service;
 import com.example.payment.dao.PaymentDao;
 import com.example.payment.dto.PaymentDto;
 import com.example.payment.dto.UserDetailsDto;
-import com.example.payment.model.Payment;
-import org.flywaydb.core.Flyway;
+import com.example.payment.feignClient.OrderServiceFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-import java.util.Optional;
+
 import java.util.UUID;
 
 @Service
-public class PaymentService {
+public  class PaymentService {
     private final PaymentDao paymentDao;
+
+    @Autowired
+    private OrderServiceFeignClient orderServiceFeignClient;
     @Autowired
     public PaymentService(@Qualifier("postgres") PaymentDao paymentDao) {
         this.paymentDao = paymentDao;
     }
     public PaymentDto initPayment(UUID orderId, UserDetailsDto userDetails) {
-        changeOrderStatus(orderId,userDetails);
+        this.changeOrderStatus(orderId,userDetails);
         return paymentDao.initPayment(orderId, userDetails);
     }
 
@@ -45,7 +40,7 @@ public class PaymentService {
         }
 
         if (!orderStatus.equals("")) {
-            URL url = null;
+          /* URL url = null;
             try {
                 url = new URL(String.format("http://localhost:8011/orders/%s/status/%s", orderId, orderStatus));
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -58,7 +53,11 @@ public class PaymentService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            HttpURLConnection con = null;
+            HttpURLConnection con = null;*/
+          orderServiceFeignClient.setOrderStatus(orderId,orderStatus);
+
         }
     }
+
+
 }

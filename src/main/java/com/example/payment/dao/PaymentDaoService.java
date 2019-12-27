@@ -47,12 +47,11 @@ public class PaymentDaoService implements PaymentDao{
     @Override
     public PaymentDto getPaymentStatus(UUID orderId) {
         String sql ="SELECT * FROM payment WHERE orderId = ?";
-        PaymentDto paymentDto = jdbcTemplate.queryForObject(sql, new Object[]{orderId}, (resultSet, i) -> {
+
+        return jdbcTemplate.queryForObject(sql, new Object[]{orderId}, (resultSet, i) -> {
             UUID orderId1 =UUID.fromString(resultSet.getString("orderId"));
             String status = resultSet.getString("status");
             return new PaymentDto (orderId1, status);
             });
-
-    return paymentDto;
     }
 }
